@@ -1,7 +1,7 @@
 import java.util.*
 
 fun calculateTotalRabbits(n: Int, m: Int): Long {
-    var lifetime = LongArray(m + 1) { 0 }
+    val lifetime = LongArray(m + 1) { 0 }
     lifetime[0] = 1
 
     for (month in 1 until n) {
