@@ -1,29 +1,16 @@
 import java.util.*
 
 fun calculateTotalRabbits(n: Int, m: Int): Long {
-    val F = LongArray(n + 1)
-    val rabbit = LongArray(m)
+    var lifetime = LongArray(m + 1) { 0 }
+    lifetime[0] = 1
 
-    rabbit[0] = 1
-    F[1] = 1
-
-    for (i in 2..n) {
-        val next = LongArray(m)
-
-        for (j in 1 until m) {
-            next[j] = rabbit[j - 1]
-            next[0] += rabbit[j]
-        }
-
-        for (k in 0 until m) {
-            rabbit[k] = next[k]
-            F[i] += rabbit[k]
-        }
+    for (month in 1 until n) {
+        lifetime.copyInto(destination = lifetime, destinationOffset = 1, startIndex = 0, endIndex = m)
+        lifetime[0] = lifetime.slice(2 until lifetime.size).sum()
     }
 
-    return F[n]
+    return lifetime.slice(0 until lifetime.size - 1).sum()
 }
-
 
 fun main() {
     val sc = Scanner(System.`in`)
